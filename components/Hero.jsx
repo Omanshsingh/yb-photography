@@ -14,6 +14,9 @@ export default function Hero() {
         <source src="/YTDown_YouTube_Tanmay-_-Uttara-Wedding-Pre-Wedding-Teas_Media_Y_iLlFtuNzI_002_720p.mp4" type="video/mp4" />
       </video>
 
+      {/* Modern, high-end cinematic grid pattern to mask upscaling blur on portrait mobile displays */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.22)_1px,transparent_1px)] [background-size:3px_3px] z-[1] pointer-events-none opacity-70 md:opacity-30 mix-blend-overlay" />
+
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-yb-dark/50 via-yb-dark/35 to-yb-dark/60 z-[1]" />
 
