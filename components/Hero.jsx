@@ -1,92 +1,18 @@
 "use client";
-import { useEffect, useRef } from "react";
 
 export default function Hero() {
-  const playerRef = useRef(null);
-  const checkIntervalRef = useRef(null);
-
-  useEffect(() => {
-    // Dynamically load YouTube IFrame Player API
-    if (!window.YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.head.appendChild(tag);
-    }
-
-    const initPlayer = () => {
-      playerRef.current = new window.YT.Player("ytPlayer", {
-        videoId: "Y_iLlFtuNzI",
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          loop: 0, // We handle looping programmatically for seamless transition
-          controls: 0,
-          showinfo: 0,
-          modestbranding: 1,
-          rel: 0,
-          iv_load_policy: 3,
-          disablekb: 1,
-          fs: 0,
-          playsinline: 1,
-          origin: typeof window !== "undefined" ? window.location.origin : "",
-          start: 3, // Start 3 seconds in to skip any intro black frame
-          end: 80,  // Keep a high quality 77-second loop
-          vq: "hd1080", // Suggest HD quality
-        },
-        events: {
-          onReady: (e) => {
-            e.target.playVideo();
-            e.target.mute();
-            if (typeof e.target.setPlaybackQuality === "function") {
-              e.target.setPlaybackQuality("hd1080");
-            }
-            
-            // Set up a high-frequency interval to check current time for seamless looping
-            if (checkIntervalRef.current) clearInterval(checkIntervalRef.current);
-            checkIntervalRef.current = setInterval(() => {
-              if (playerRef.current && typeof playerRef.current.getCurrentTime === "function") {
-                const currentTime = playerRef.current.getCurrentTime();
-                // Seek back to start 1.5 seconds before the hard limit (80s)
-                // This prevents YouTube's player from ever entering the native "ENDED" state
-                // which causes the black flash/spinner/reload screen.
-                if (currentTime >= 78.5) {
-                  playerRef.current.seekTo(3, true);
-                }
-              }
-            }, 250);
-          },
-          onStateChange: (e) => {
-            // Backup loop handling in case the interval is delayed
-            if (e.data === window.YT.PlayerState.ENDED) {
-              e.target.seekTo(3, true);
-              e.target.playVideo();
-            }
-          },
-        },
-      });
-    };
-
-    if (window.YT && window.YT.Player) {
-      initPlayer();
-    } else {
-      window.onYouTubeIframeAPIReady = initPlayer;
-    }
-
-    return () => {
-      if (checkIntervalRef.current) clearInterval(checkIntervalRef.current);
-      // Clean up player instance on unmount
-      if (playerRef.current && typeof playerRef.current.destroy === "function") {
-        playerRef.current.destroy();
-      }
-    };
-  }, []);
-
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center text-center overflow-hidden bg-yb-dark">
       {/* Video Background */}
-      <div className="hero-video-wrap absolute inset-0 overflow-hidden pointer-events-none">
-        <div id="ytPlayer" />
-      </div>
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      >
+        <source src="/YTDown_YouTube_Tanmay-_-Uttara-Wedding-Pre-Wedding-Teas_Media_Y_iLlFtuNzI_002_720p.mp4" type="video/mp4" />
+      </video>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-yb-dark/50 via-yb-dark/35 to-yb-dark/60 z-[1]" />
