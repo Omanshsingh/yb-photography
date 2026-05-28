@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* ============================================
+   YB PHOTOGRAPHY — Tailwind v4 + Custom CSS
+   Mobile-first, matching beatsinthemoment.com
+   ============================================ */
+
+@theme {
+  --color-yb-gold: #C0903C;
+  --color-yb-gold-light: #D4B978;
+  --color-yb-gold-dim: rgba(197, 160, 85, 0.15);
+  --color-yb-dark: #0D0D0D;
+  --color-yb-charcoal: #1A1A1A;
+  --color-yb-warm: #FAF8F5;
+  --color-yb-ivory: #FFFDF9;
+  --color-yb-text: #333333;
+  --color-yb-muted: #888888;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+}
+
+/* --- Reset --- */
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-body); overflow-x: hidden; }
+
+/* --- Scroll hint animation --- */
+@keyframes scrollHint {
+  0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+}
+
+/* --- WhatsApp pulse --- */
+@keyframes whatsappPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 6px 36px rgba(37, 211, 102, 0.6); }
+}
+
+/* --- Hero video sizing --- */
+.hero-video-wrap iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 300vw; height: 300vh;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  border: none;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .hero-video-wrap iframe {
+    width: 110vw; height: 110vh;
+  }
+}
+
+/* --- Accordion --- */
+.accordion-item {
+  background: var(--accent-img, #333) center/cover no-repeat;
+  transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.65) 0%, transparent 50%);
+}
+
+/* --- Scroll hint dot --- */
+.scroll-hint-dot {
+  animation: scrollHint 1.8s ease-in-out infinite;
+}
+
+/* --- WhatsApp float --- */
+.whatsapp-float-btn {
+  animation: whatsappPulse 2.5s ease-in-out infinite;
+}
