@@ -4,6 +4,10 @@ export const metadata = {
   title: "YB Photography — Premium Wedding & Event Photography in Mumbai",
   description:
     "YB Photography by Yadnesh Bagwe — capturing your life in our lens. Premium wedding, pre-wedding, portrait and event photography in Mumbai, Maharashtra.",
+  icons: {
+    icon: "/logo-icon.svg",
+    apple: "/logo-icon.svg",
+  },
   openGraph: {
     title: "YB Photography — Your Life in Our Lens",
     description:
